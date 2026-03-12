@@ -1180,3 +1180,249 @@ body {
     font-size: 0.78rem;
     color: var(--pilrek-gray-dark);
 }
+/* ===== ZIG-ZAG EVENTS (dalam phase) ===== */
+.zz-events {
+    position: relative;
+    padding: 1rem 0 0.5rem;
+}
+
+/* Garis tengah vertikal */
+.zz-spine {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--pilrek-blue-accent), var(--pilrek-gold), transparent);
+    transform: translateX(-50%);
+    z-index: 0;
+}
+
+/* Baris tiap event */
+.zz-event-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    z-index: 1;
+}
+
+.zz-event-left  { flex-direction: row; }
+.zz-event-right { flex-direction: row-reverse; }
+
+/* Node ikon di tengah spine */
+.zz-event-node {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    border: 3px solid var(--pilrek-white);
+    z-index: 2;
+    flex-shrink: 0;
+}
+
+.zz-event-node.selesai {
+    background: var(--pilrek-success);
+    color: var(--pilrek-white);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+}
+.zz-event-node.berlangsung {
+    background: linear-gradient(135deg, var(--pilrek-gold), var(--pilrek-gold-dark));
+    color: var(--pilrek-navy);
+    box-shadow: 0 0 0 3px rgba(212, 168, 67, 0.3);
+    animation: pulse-node 1.8s ease-in-out infinite;
+}
+.zz-event-node.akan_datang {
+    background: #e2e8f0;
+    color: var(--pilrek-gray-dark);
+    box-shadow: 0 0 0 3px rgba(203, 213, 225, 0.4);
+}
+
+/* Card event — lebar ~44%, menjauhi spine */
+.zz-event-card {
+    width: calc(50% - 36px);
+    background: var(--pilrek-white);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    transition: all 0.3s;
+}
+
+.zz-event-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--pilrek-gold);
+    transform: translateY(-2px);
+}
+
+/* Border kiri berwarna sesuai status */
+.zz-event-card.selesai    { border-left: 3px solid var(--pilrek-success); }
+.zz-event-card.berlangsung { border-left: 3px solid var(--pilrek-gold); }
+.zz-event-card.akan_datang { border-left: 3px solid #cbd5e1; }
+
+/* Arrow menunjuk ke spine */
+.zz-event-left .zz-event-card {
+    margin-right: auto;
+}
+.zz-event-left .zz-event-card::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -11px;
+    transform: translateY(-50%);
+    border: 6px solid transparent;
+    border-left-color: var(--pilrek-white);
+}
+
+.zz-event-right .zz-event-card {
+    margin-left: auto;
+}
+.zz-event-right .zz-event-card::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -11px;
+    transform: translateY(-50%);
+    border: 6px solid transparent;
+    border-right-color: var(--pilrek-white);
+}
+
+/* ── Responsive mobile ── */
+@media (max-width: 767.98px) {
+    .zz-spine { left: 20px; }
+
+    .zz-event-row,
+    .zz-event-left,
+    .zz-event-right {
+        flex-direction: column;
+        padding-left: 52px;
+    }
+
+    .zz-event-node {
+        left: 20px;
+        top: 0.6rem;
+        position: absolute;
+        transform: none;
+    }
+
+    .zz-event-card {
+        width: 100%;
+        margin: 0 !important;
+    }
+
+    .zz-event-left .zz-event-card::after,
+    .zz-event-right .zz-event-card::after {
+        top: 1rem;
+        right: auto;
+        left: -11px;
+        transform: none;
+        border-left-color: transparent;
+        border-right-color: var(--pilrek-white);
+    }
+}
+
+/* ===== CANDIDATE CARD — CLEAN VERSION ===== */
+.candidate-card {
+    cursor: pointer;
+    background: var(--pilrek-white);
+    border-radius: 15px; /* Sesuaikan dengan desain Anda */
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.candidate-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.candidate-photo {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3/4; /* Menjaga ukuran kotak foto tetap konsisten */
+    background: #f4f4f4;
+}
+
+.candidate-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Mencegah foto gepeng */
+    object-position: center top;
+    transition: transform 0.35s ease;
+}
+
+.candidate-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10, 22, 40, 0.85), rgba(10, 22, 40, 0.2));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    font-weight: 600;
+}
+
+.candidate-overlay i {
+    font-size: 2rem;
+    color: var(--pilrek-gold);
+}
+
+.candidate-card:hover .candidate-overlay {
+    opacity: 1;
+}
+
+.candidate-card:hover .candidate-photo img {
+    transform: scale(1.08);
+}
+
+.candidate-info {
+    padding: 1.5rem;
+    text-align: left;
+}
+
+.candidate-name {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--pilrek-navy);
+    margin-bottom: 0.25rem;
+    text-transform: capitalize; /* Otomatis memperbaiki huruf kapital */
+}
+
+.candidate-position {
+    font-size: 0.9rem;
+    color: var(--pilrek-blue-accent);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+}
+
+.candidate-bio {
+    font-size: 0.85rem;
+    color: #666;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Membatasi teks bio hanya 2 baris agar rapi */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.placeholder-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 4rem;
+    color: #ccc;
+}

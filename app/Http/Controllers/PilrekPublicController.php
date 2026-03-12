@@ -33,4 +33,12 @@ class PilrekPublicController extends Controller
         
         return Storage::disk('public')->download($document->file_path, $document->file_name);
     }
+
+    public function showCandidate($id)
+    {
+        $candidate = $this->service->findCandidate($id);
+        if (!$candidate->is_active) abort(404);
+
+        return view('pages.pilrek.candidate-detail', compact('candidate'));
+    }
 }

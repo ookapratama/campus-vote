@@ -14,6 +14,7 @@ use App\Http\Controllers\PilrekPublicController;
 Route::get('/', [PilrekPublicController::class, 'index'])->name('pilrek.home');
 Route::get('/pengumuman/{slug}', [PilrekPublicController::class, 'showAnnouncement'])->name('pilrek.announcement');
 Route::get('/unduh/{id}', [PilrekPublicController::class, 'downloadDocument'])->name('pilrek.download');
+Route::get('/kandidat/{id}', [PilrekPublicController::class, 'showCandidate'])->name('pilrek.candidate');
 
 // Auth Routes
 Route::get('login', [AuthController::class, 'showLogin'])->name('login');

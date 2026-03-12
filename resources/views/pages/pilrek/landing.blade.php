@@ -1,7 +1,5 @@
 @extends('layouts.pilrekLayout')
-
 @section('title', 'Pemilihan Rektor USN Kolaka 2026-2030')
-
 @section('content')
    <!-- ========== HERO SECTION ========== -->
    <section id="beranda" class="pilrek-hero">
@@ -9,7 +7,6 @@
       <div class="hero-decoration"></div>
       <div class="hero-decoration"></div>
       <div class="hero-decoration"></div>
-
       <div class="container">
          <div class="row align-items-center">
             <div class="col-lg-7 hero-content" data-aos="fade-right">
@@ -54,7 +51,6 @@
          </div>
       </div>
    </section>
-
    <!-- ========== PROGRESS SECTION ========== -->
    <section class="progress-section">
       <div class="container">
@@ -79,7 +75,6 @@
          </div>
       </div>
    </section>
-
    <!-- ========== TIMELINE SECTION ========== -->
    <section id="timeline" class="section-pilrek bg-light">
       <div class="container">
@@ -87,130 +82,127 @@
             <div class="section-badge"><i class="ri-time-line"></i> TIMELINE</div>
             <h2 class="section-title">Tahapan Pemilihan Rektor</h2>
             <p class="section-subtitle">
-               Seluruh proses pemilihan rektor dilaksanakan berdasarkan Permenristekdikti No. 19 Tahun 2017.
-               <br><small class="text-muted"><em>*) Jadwal bertanda bintang bersifat tentatif, mengikuti jadwal dari
-                     Mendiktisaintek.</em></small>
+            Seluruh proses pemilihan rektor dilaksanakan berdasarkan Permenristekdikti No. 19 Tahun 2017.
+            <br><small class="text-muted"><em>*) Jadwal bertanda bintang bersifat tentatif, mengikuti jadwal dari Mendiktisaintek.</em></small>
             </p>
          </div>
-
          @php $phaseIndex = 0; @endphp
          @foreach ($timelineGroups as $phaseName => $events)
             @php
-               $phaseIndex++;
-               $phaseStatuses = $events->map(fn($e) => $e->computed_status);
-               if ($phaseStatuses->every(fn($s) => $s === 'selesai')) {
-                   $phaseStatus = 'selesai';
-                   $phaseLabel = 'Selesai';
-               } elseif ($phaseStatuses->contains('berlangsung')) {
-                   $phaseStatus = 'berlangsung';
-                   $phaseLabel = 'Berlangsung';
-               } else {
-                   $phaseStatus = 'akan_datang';
-                   $phaseLabel = 'Akan Datang';
-               }
+            $phaseIndex++;
+            $phaseStatuses = $events->map(fn($e) => $e->computed_status);
+            if ($phaseStatuses->every(fn($s) => $s === 'selesai')) {
+                  $phaseStatus = 'selesai'; $phaseLabel = 'Selesai';
+            } elseif ($phaseStatuses->contains('berlangsung')) {
+                  $phaseStatus = 'berlangsung'; $phaseLabel = 'Berlangsung';
+            } else {
+                  $phaseStatus = 'akan_datang'; $phaseLabel = 'Akan Datang';
+            }
             @endphp
             <div class="timeline-phase" data-aos="fade-up" data-aos-delay="{{ $phaseIndex * 100 }}">
-               <div class="phase-header">
-                  <div class="phase-number">{{ $phaseIndex }}</div>
-                  <div>
-                     <h3 class="phase-title">{{ $phaseName }}</h3>
+            <div class="phase-header">
+               <div class="phase-number">{{ $phaseIndex }}</div>
+               <div>
+                  <h3 class="phase-title">{{ $phaseName }}</h3>
+               </div>
+               <span class="phase-status {{ $phaseStatus }}">
+                  @if ($phaseStatus === 'selesai')
+                  <i class="ri-check-line me-1"></i>
+                  @elseif($phaseStatus === 'berlangsung')
+                  <i class="ri-loader-4-line me-1"></i>
+                  @else
+                  <i class="ri-time-line me-1"></i>
+                  @endif
+                  {{ $phaseLabel }}
+               </span>
+            </div>
+            {{-- ZIG-ZAG EVENTS --}}
+            <div class="zz-events">
+               {{-- Garis tengah --}}
+               <div class="zz-spine"></div>
+               @php $eventIndex = 0; @endphp
+               @foreach ($events as $event)
+                  @php
+                  $eventIndex++;
+                  $eventStatus = $event->computed_status;
+                  $isEven = $eventIndex % 2 === 0;
+                  @endphp
+                  <div class="zz-event-row {{ $isEven ? 'zz-event-right' : 'zz-event-left' }}" data-aos="{{ $isEven ? 'fade-left' : 'fade-right' }}">
+                  {{-- Node di tengah --}}
+                  <div class="zz-event-node {{ $eventStatus }}">
+                     <i class="{{ $event->icon ?? 'ri-calendar-check-line' }}"></i>
                   </div>
-                  <span class="phase-status {{ $phaseStatus }}">
-                     @if ($phaseStatus === 'selesai')
-                        <i class="ri-check-line me-1"></i>
-                     @elseif($phaseStatus === 'berlangsung')
-                        <i class="ri-loader-4-line me-1"></i>
-                     @else
-                        <i class="ri-time-line me-1"></i>
-                     @endif
-                     {{ $phaseLabel }}
-                  </span>
-               </div>
-
-               <div class="timeline-events">
-                  @foreach ($events as $event)
-                     @php $eventStatus = $event->computed_status; @endphp
-                     <div class="timeline-event {{ $eventStatus }}">
-                        <div class="d-flex align-items-start gap-3">
-                           <div class="event-icon {{ $eventStatus }}">
-                              <i class="{{ $event->icon ?? 'ri-calendar-check-line' }}"></i>
-                           </div>
-                           <div class="flex-grow-1">
-                              <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
-                                 <h5 class="event-name mb-0">{{ $event->event_name }}</h5>
-                                 <span class="event-status-badge {{ $eventStatus }}">{{ $event->status_label }}</span>
-                              </div>
-                              <div class="event-date mt-1">
-                                 <i class="ri-calendar-line me-1"></i>
-                                 {{ $event->start_date->translatedFormat('d F Y') }}
-                                 @if ($event->end_date && $event->end_date->ne($event->start_date))
-                                    – {{ $event->end_date->translatedFormat('d F Y') }}
-                                 @endif
-                              </div>
-                              @if ($event->description)
-                                 <p class="mb-0 mt-2" style="font-size:0.85rem;color:var(--pilrek-gray-dark)">
-                                    {{ $event->description }}
-                                 </p>
-                              @endif
-                           </div>
-                        </div>
+                  {{-- Card event --}}
+                  <div class="zz-event-card {{ $eventStatus }}">
+                     <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-1">
+                        <h5 class="event-name mb-0">{{ $event->event_name }}</h5>
+                        <span class="event-status-badge {{ $eventStatus }}">{{ $event->status_label }}</span>
                      </div>
-                  @endforeach
-               </div>
+                     <div class="event-date">
+                        <i class="ri-calendar-line me-1"></i>
+                        {{ $event->start_date->translatedFormat('d F Y') }}
+                        @if ($event->end_date && $event->end_date->ne($event->start_date))
+                        – {{ $event->end_date->translatedFormat('d F Y') }}
+                        @endif
+                     </div>
+                     @if ($event->description)
+                        <p class="mb-0 mt-2" style="font-size:0.85rem;color:var(--pilrek-gray-dark)">
+                        {{ $event->description }}
+                        </p>
+                     @endif
+                  </div>
+                  </div>
+               @endforeach
+            </div>
             </div>
          @endforeach
       </div>
    </section>
-
    <!-- ========== KANDIDAT SECTION ========== -->
    <section id="kandidat" class="section-pilrek">
       <div class="container">
          <div class="section-header" data-aos="fade-up">
-            <div class="section-badge"><i class="ri-user-star-line"></i> PROFIL KANDIDAT</div>
-            <h2 class="section-title">Bakal Calon Rektor</h2>
-            <p class="section-subtitle">
-               Profil bakal calon rektor USN Kolaka periode 2026-2030
-            </p>
+               <div class="section-badge"><i class="ri-user-star-line"></i> PROFIL KANDIDAT</div>
+               <h2 class="section-title">Bakal Calon Rektor</h2>
+               <p class="section-subtitle">Profil bakal calon rektor USN Kolaka periode 2026-2030</p>
          </div>
-
          @if ($candidates->count() > 0)
-            <div class="row g-4">
-               @foreach ($candidates as $candidate)
-                  <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                     <div class="candidate-card">
-                        <div class="candidate-photo">
-                           @if ($candidate->photo)
-                              <img src="{{ $candidate->photo_url }}" alt="{{ $candidate->name }}">
-                           @else
-                              <i class="ri-user-3-line placeholder-icon"></i>
-                           @endif
-                        </div>
-                        <div class="candidate-info">
-                           <h4 class="candidate-name">{{ $candidate->title }} {{ $candidate->name }}</h4>
-                           @if ($candidate->position)
-                              <p class="candidate-position">{{ $candidate->position }}</p>
-                           @endif
-                           @if ($candidate->bio)
-                              <p class="candidate-bio">{{ $candidate->bio }}</p>
-                           @endif
-                        </div>
+               <div class="row g-4">
+                  @foreach ($candidates as $candidate)
+                     <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                           <div class="candidate-card" onclick="window.location='{{ route('pilrek.candidate', $candidate->id) }}'">
+                              <div class="candidate-photo">
+                                 @if ($candidate->photo)
+                                       <img src="{{ $candidate->photo_url }}" alt="{{ $candidate->name }}">
+                                 @else
+                                       <div class="placeholder-icon">
+                                          <i class="ri-user-3-line"></i>
+                                       </div>
+                                 @endif
+                                 <div class="candidate-overlay">
+                                       <i class="ri-eye-line"></i>
+                                       <span>Lihat Profil</span>
+                                 </div>
+                              </div>
+                              <div class="candidate-info">
+                                 <h4 class="candidate-name">{{ ucwords(strtolower($candidate->title . ' ' . $candidate->name)) }}</h4>
+                                 
+                                 @if ($candidate->position)
+                                       <p class="candidate-position">{{ $candidate->position }}</p>
+                                 @endif
+                                 
+                                 @if ($candidate->bio)
+                                       <p class="candidate-bio">{{ Str::limit(strip_tags($candidate->bio), 100) }}</p>
+                                 @endif
+                              </div>
+                           </div>
                      </div>
-                  </div>
-               @endforeach
-            </div>
+                  @endforeach
+               </div>
          @else
-            <div class="candidate-empty" data-aos="fade-up">
-               <i class="ri-user-search-line d-block mb-3"></i>
-               <h5 style="color:var(--pilrek-navy);font-family:var(--font-heading)">Pendaftaran Segera Dibuka</h5>
-               <p style="color:var(--pilrek-gray-dark);max-width:400px;margin:0 auto">
-                  Profil bakal calon rektor akan ditampilkan setelah proses pendaftaran dan verifikasi administrasi
-                  selesai.
-               </p>
-            </div>
-         @endif
+               @endif
       </div>
    </section>
-
    <!-- ========== PENGUMUMAN SECTION ========== -->
    <section id="pengumuman" class="section-pilrek bg-light">
       <div class="container">
@@ -219,7 +211,6 @@
             <h2 class="section-title">Informasi Terkini</h2>
             <p class="section-subtitle">Pengumuman resmi dan berita terbaru seputar Pemilihan Rektor</p>
          </div>
-
          @if ($announcements->count() > 0)
             <div class="row g-4">
                @foreach ($announcements as $item)
@@ -252,7 +243,6 @@
          @endif
       </div>
    </section>
-
    <!-- ========== DOKUMEN SECTION ========== -->
    <section id="dokumen" class="section-pilrek">
       <div class="container">
@@ -261,7 +251,6 @@
             <h2 class="section-title">Dokumen Resmi</h2>
             <p class="section-subtitle">Formulir pendaftaran dan dokumen resmi Pemilihan Rektor</p>
          </div>
-
          <div class="row g-3">
             @foreach ($documents as $doc)
                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
@@ -282,7 +271,6 @@
                   </div>
                </div>
             @endforeach
-
             @if ($documents->count() === 0)
                <div class="col-12 text-center py-5">
                   <i class="ri-file-search-line" style="font-size:3rem;color:var(--pilrek-blue-accent);opacity:0.3"></i>
@@ -292,7 +280,6 @@
          </div>
       </div>
    </section>
-
    <!-- ========== DASAR HUKUM SECTION ========== -->
    <section id="dasar-hukum" class="section-pilrek bg-light">
       <div class="container">
@@ -301,7 +288,6 @@
             <h2 class="section-title">Landasan Hukum Pemilihan</h2>
             <p class="section-subtitle">Dasar hukum penyelenggaraan pemilihan rektor universitas negeri</p>
          </div>
-
          <div class="row g-4">
             <div class="col-lg-6" data-aos="fade-up">
                <div class="legal-card h-100">
