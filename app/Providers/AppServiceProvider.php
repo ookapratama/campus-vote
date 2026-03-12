@@ -29,6 +29,22 @@ class AppServiceProvider extends ServiceProvider
             \App\Interfaces\Repositories\ProductsRepositoryInterface::class,
             \App\Repositories\ProductsRepository::class
         );
+        $this->app->bind(
+            \App\Interfaces\Repositories\PilrekTimelineRepositoryInterface::class,
+            \App\Repositories\PilrekTimelineRepository::class
+        );
+        $this->app->bind(
+            \App\Interfaces\Repositories\PilrekCandidateRepositoryInterface::class,
+            \App\Repositories\PilrekCandidateRepository::class
+        );
+        $this->app->bind(
+            \App\Interfaces\Repositories\PilrekAnnouncementRepositoryInterface::class,
+            \App\Repositories\PilrekAnnouncementRepository::class
+        );
+        $this->app->bind(
+            \App\Interfaces\Repositories\PilrekDocumentRepositoryInterface::class,
+            \App\Repositories\PilrekDocumentRepository::class
+        );
     }
 
     /**

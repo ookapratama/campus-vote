@@ -2,77 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PilrekTimeline;
-use App\Models\PilrekCandidate;
-use App\Models\PilrekAnnouncement;
-use App\Models\PilrekDocument;
+use App\Services\PilrekService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PilrekPublicController extends Controller
 {
-    /**
-     * Landing page / home
-     */
+    public function __construct(protected PilrekService $service) {}
+
     public function index()
     {
-        $timelineGroups = PilrekTimeline::where('is_active', true)
-            ->orderBy('phase_order')
-            ->orderBy('start_date')
-            ->get()
-            ->groupBy('phase_name');
-
-        $announcements = PilrekAnnouncement::published()->take(6)->get();
-        $candidates = PilrekCandidate::active()->get();
-        $documents = PilrekDocument::active()->get();
-
-        // Hitung progress
-        $totalEvents = PilrekTimeline::where('is_active', true)->count();
-        $completedEvents = PilrekTimeline::where('is_active', true)->get()
-            ->filter(fn($t) => $t->computed_status === 'selesai')->count();
-        $progress = $totalEvents > 0 ? round(($completedEvents / $totalEvents) * 100) : 0;
-
-        return view('pages.pilrek.landing', compact(
-            'timelineGroups',
-            'announcements',
-            'candidates',
-            'documents',
-            'progress',
-            'totalEvents',
-            'completedEvents'
-        ));
+        $data = $this->service->getLandingData();
+        return view('pages.pilrek.landing', $data);
     }
 
-    /**
-     * Detail pengumuman/berita
-     */
     public function showAnnouncement($slug)
     {
-        $announcement = PilrekAnnouncement::where('slug', $slug)
-            ->where('is_published', true)
-            ->firstOrFail();
-
-        $recentAnnouncements = PilrekAnnouncement::published()
-            ->where('id', '!=', $announcement->id)
-            ->take(5)
-            ->get();
-
+        $announcement = $this->service->findAnnouncementBySlug($slug);
+        $recentAnnouncements = $this->service->getRecentAnnouncements($announcement->id);
+            
         return view('pages.pilrek.announcement-detail', compact('announcement', 'recentAnnouncements'));
     }
 
-    /**
-     * Download dokumen
-     */
     public function downloadDocument($id)
     {
-        $document = PilrekDocument::findOrFail($id);
+        $document = $this->service->findDocument($id);
+        if (!$document->is_active) abort(404);
+        
         $document->increment('download_count');
-
-        $filePath = storage_path('app/public/' . $document->file_path);
-
-        if (file_exists($filePath)) {
-            return response()->download($filePath, $document->file_name);
-        }
-
-        return back()->with('error', 'File tidak ditemukan.');
+        
+        return Storage::disk('public')->download($document->file_path, $document->file_name);
     }
 }

@@ -3,21 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\PilrekTimeline;
+use App\Services\PilrekService;
 use Illuminate\Http\Request;
 
 class PilrekTimelineController extends Controller
 {
+    public function __construct(protected PilrekService $service) {}
+
     public function index()
     {
-        $data = PilrekTimeline::orderBy('phase_order')->orderBy('start_date')->get();
+        $data = $this->service->getAllTimeline();
         return view('pages.admin.pilrek-timeline.index', compact('data'));
     }
 
     public function create()
     {
-        $phases = PilrekTimeline::select('phase_name', 'phase_order')
-            ->distinct()->orderBy('phase_order')->pluck('phase_name', 'phase_order');
+        $phases = $this->service->getAllTimeline()
+            ->unique('phase_name')->pluck('phase_name', 'phase_order');
         return view('pages.admin.pilrek-timeline.form', compact('phases'));
     }
 
@@ -35,7 +37,7 @@ class PilrekTimelineController extends Controller
         ]);
 
         $validated['is_active'] = $request->boolean('is_active');
-        PilrekTimeline::create($validated);
+        $this->service->createTimeline($validated);
 
         return redirect()->route('admin.pilrek-timeline.index')
             ->with('success', 'Event timeline berhasil ditambahkan!');
@@ -43,9 +45,9 @@ class PilrekTimelineController extends Controller
 
     public function edit($id)
     {
-        $data = PilrekTimeline::findOrFail($id);
-        $phases = PilrekTimeline::select('phase_name', 'phase_order')
-            ->distinct()->orderBy('phase_order')->pluck('phase_name', 'phase_order');
+        $data = $this->service->findTimeline($id);
+        $phases = $this->service->getAllTimeline()
+            ->unique('phase_name')->pluck('phase_name', 'phase_order');
         return view('pages.admin.pilrek-timeline.form', compact('data', 'phases'));
     }
 
@@ -63,7 +65,7 @@ class PilrekTimelineController extends Controller
         ]);
 
         $validated['is_active'] = $request->boolean('is_active');
-        PilrekTimeline::findOrFail($id)->update($validated);
+        $this->service->updateTimeline($id, $validated);
 
         return redirect()->route('admin.pilrek-timeline.index')
             ->with('success', 'Event timeline berhasil diperbarui!');
@@ -71,7 +73,7 @@ class PilrekTimelineController extends Controller
 
     public function destroy($id)
     {
-        PilrekTimeline::findOrFail($id)->delete();
+        $this->service->deleteTimeline($id);
 
         if (request()->wantsJson()) {
             return \App\Helpers\ResponseHelper::success(null, 'Event timeline berhasil dihapus!');

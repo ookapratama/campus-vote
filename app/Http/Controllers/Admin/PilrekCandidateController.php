@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\PilrekCandidate;
-use App\Services\FileUploadService;
+use App\Services\PilrekService;
 use Illuminate\Http\Request;
 
 class PilrekCandidateController extends Controller
 {
-    public function __construct(protected FileUploadService $fileUploadService) {}
+    public function __construct(protected PilrekService $service) {}
 
     public function index()
     {
@@ -39,14 +39,8 @@ class PilrekCandidateController extends Controller
         $validated['is_active'] = $request->boolean('is_active');
         $validated['order'] = $validated['order'] ?? 0;
 
-        if ($request->hasFile('photo')) {
-            $media = $this->fileUploadService->upload($request->file('photo'), 'pilrek/candidates', 'public', [
-                'width' => 500, 'height' => 600, 'crop' => true
-            ]);
-            $validated['photo'] = $media->path;
-        }
+        $this->service->createCandidate($validated, $request->file('photo'));
 
-        PilrekCandidate::create($validated);
         return redirect()->route('admin.pilrek-candidate.index')
             ->with('success', 'Bakal calon berhasil ditambahkan!');
     }
@@ -72,16 +66,9 @@ class PilrekCandidateController extends Controller
         ]);
 
         $validated['is_active'] = $request->boolean('is_active');
-        $candidate = PilrekCandidate::findOrFail($id);
 
-        if ($request->hasFile('photo')) {
-            $media = $this->fileUploadService->upload($request->file('photo'), 'pilrek/candidates', 'public', [
-                'width' => 500, 'height' => 600, 'crop' => true
-            ]);
-            $validated['photo'] = $media->path;
-        }
+        $this->service->updateCandidate($id, $validated, $request->file('photo'));
 
-        $candidate->update($validated);
         return redirect()->route('admin.pilrek-candidate.index')
             ->with('success', 'Bakal calon berhasil diperbarui!');
     }

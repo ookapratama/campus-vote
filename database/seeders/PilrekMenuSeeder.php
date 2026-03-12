@@ -15,7 +15,7 @@ class PilrekMenuSeeder extends Seeder
             ['slug' => 'pilrek.management'],
             [
                 'name' => 'Manajemen Pilrek',
-                'icon' => 'ri-government-line',
+                'icon' => 'ri-shield-user-line',
                 'path' => '#',
                 'order_no' => 10,
             ]
@@ -27,7 +27,7 @@ class PilrekMenuSeeder extends Seeder
             [
                 'parent_id' => $pilrekParent->id,
                 'name' => 'Timeline & Tahapan',
-                'icon' => 'ri-time-line',
+                'icon' => 'ri-calendar-todo-line',
                 'path' => 'admin/pilrek-timeline',
                 'order_no' => 1,
             ]
@@ -39,7 +39,7 @@ class PilrekMenuSeeder extends Seeder
             [
                 'parent_id' => $pilrekParent->id,
                 'name' => 'Bakal Calon',
-                'icon' => 'ri-user-star-line',
+                'icon' => 'ri-group-line',
                 'path' => 'admin/pilrek-candidate',
                 'order_no' => 2,
             ]
@@ -51,7 +51,7 @@ class PilrekMenuSeeder extends Seeder
             [
                 'parent_id' => $pilrekParent->id,
                 'name' => 'Pengumuman & Berita',
-                'icon' => 'ri-megaphone-line',
+                'icon' => 'ri-broadcast-line',
                 'path' => 'admin/pilrek-announcement',
                 'order_no' => 3,
             ]
@@ -63,14 +63,14 @@ class PilrekMenuSeeder extends Seeder
             [
                 'parent_id' => $pilrekParent->id,
                 'name' => 'Unduh Dokumen',
-                'icon' => 'ri-file-download-line',
+                'icon' => 'ri-folder-download-line',
                 'path' => 'admin/pilrek-document',
                 'order_no' => 4,
             ]
         );
 
         // Assign to Super Admin and Admin roles
-        $roles = Role::whereIn('slug', ['super-admin', 'admin', 'senat'])->get();
+        $roles = Role::whereIn('slug', ['super-admin', 'admin'])->get();
         foreach ($roles as $role) {
             $role->menus()->syncWithoutDetaching([
                 $pilrekParent->id => ['can_create' => true, 'can_read' => true, 'can_update' => true, 'can_delete' => true],

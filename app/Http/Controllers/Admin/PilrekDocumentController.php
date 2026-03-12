@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\PilrekDocument;
+use App\Services\PilrekService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class PilrekDocumentController extends Controller
 {
+    public function __construct(protected PilrekService $service) {}
+
     public function index()
     {
         $data = PilrekDocument::orderBy('order')->get();
@@ -31,20 +34,15 @@ class PilrekDocumentController extends Controller
             'is_active' => 'nullable|boolean',
         ]);
 
-        $file = $request->file('file');
-        $path = $file->store('documents', 'public');
-
-        PilrekDocument::create([
+        $data = [
             'title' => $validated['title'],
             'description' => $validated['description'] ?? null,
-            'file_path' => $path,
-            'file_name' => $file->getClientOriginalName(),
-            'file_type' => $file->getClientOriginalExtension(),
-            'file_size' => $file->getSize(),
             'category' => $validated['category'],
             'order' => $validated['order'] ?? 0,
             'is_active' => $request->boolean('is_active'),
-        ]);
+        ];
+
+        $this->service->createDocument($data, $request->file('file'));
 
         return redirect()->route('admin.pilrek-document.index')
             ->with('success', 'Dokumen berhasil diunggah!');
@@ -77,7 +75,6 @@ class PilrekDocumentController extends Controller
         ];
 
         if ($request->hasFile('file')) {
-            // Delete old file
             if ($document->file_path) {
                 Storage::disk('public')->delete($document->file_path);
             }

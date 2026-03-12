@@ -33,7 +33,7 @@ class AuthController extends Controller
             // Log aktivitas login
             $this->activityLogService->logLogin();
             
-            return redirect()->intended('/');
+            return redirect()->intended('/admin/dashboard');
         }
 
         return back()->withErrors([
@@ -83,7 +83,7 @@ class AuthController extends Controller
         // Log aktivitas register
         $this->activityLogService->log('register', 'User baru terdaftar sebagai Visitor', $user);
 
-        return redirect()->intended('/')->with('success', 'Registrasi berhasil! Selamat datang di dashboard pengunjung.');
+        return redirect()->intended('/admin/dashboard')->with('success', 'Registrasi berhasil! Selamat datang di dashboard pengunjung.');
     }
 
     public function logout(Request $request)
