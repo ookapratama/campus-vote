@@ -26,6 +26,16 @@ Route::middleware(['auth'])->group(function () {
     // Dashboard as home page (admin)
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // ========================================
+    // PILREK ADMIN CRUD ROUTES
+    // ========================================
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('pilrek-timeline', \App\Http\Controllers\Admin\PilrekTimelineController::class)->except(['show']);
+        Route::resource('pilrek-candidate', \App\Http\Controllers\Admin\PilrekCandidateController::class)->except(['show']);
+        Route::resource('pilrek-announcement', \App\Http\Controllers\Admin\PilrekAnnouncementController::class)->except(['show']);
+        Route::resource('pilrek-document', \App\Http\Controllers\Admin\PilrekDocumentController::class)->except(['show']);
+    });
+
     // User CRUD routes
     Route::resource('user', UserController::class)->middleware('check.permission:user.index');
 

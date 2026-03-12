@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             SettingSeeder::class,
             ExtraMenuSeeder::class,
             PilrekSeeder::class,
+            PilrekMenuSeeder::class,
         ]);
     }
 }
