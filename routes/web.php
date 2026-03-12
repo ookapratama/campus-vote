@@ -6,6 +6,14 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\PilrekPublicController;
+
+// ========================================
+// PUBLIC PILREK ROUTES (No Auth Required)
+// ========================================
+Route::get('/', [PilrekPublicController::class, 'index'])->name('pilrek.home');
+Route::get('/pengumuman/{slug}', [PilrekPublicController::class, 'showAnnouncement'])->name('pilrek.announcement');
+Route::get('/unduh/{id}', [PilrekPublicController::class, 'downloadDocument'])->name('pilrek.download');
 
 // Auth Routes
 Route::get('login', [AuthController::class, 'showLogin'])->name('login');
@@ -15,8 +23,8 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
-    // Dashboard as home page
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    // Dashboard as home page (admin)
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // User CRUD routes
     Route::resource('user', UserController::class)->middleware('check.permission:user.index');
