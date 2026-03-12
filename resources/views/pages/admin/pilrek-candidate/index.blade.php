@@ -34,15 +34,8 @@
                      <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>
-                           @if ($item->photo)
-                              <img src="{{ asset('storage/' . $item->photo) }}" class="rounded"
-                                 style="width:50px;height:50px;object-fit:cover">
-                           @else
-                              <div class="bg-light rounded d-flex align-items-center justify-content-center"
-                                 style="width:50px;height:50px">
-                                 <i class="ri-user-3-line text-muted"></i>
-                              </div>
-                           @endif
+                           <img src="{{ $item->photo_url }}" class="rounded"
+                              style="width:50px;height:50px;object-fit:cover">
                         </td>
                         <td>
                            <span class="fw-bold">{{ $item->title }} {{ $item->name }}</span>

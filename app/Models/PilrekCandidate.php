@@ -33,9 +33,9 @@ class PilrekCandidate extends Model
 
     public function getPhotoUrlAttribute(): string
     {
-        if ($this->photo && file_exists(public_path('storage/' . $this->photo))) {
-            return asset('storage/' . $this->photo);
+        if ($this->photo && \Illuminate\Support\Facades\Storage::disk('public')->exists($this->photo)) {
+            return '/storage/' . $this->photo;
         }
-        return asset('assets/img/pilrek/default-candidate.png');
+        return asset('assets/img/avatars/1.png'); // Fallback to existing avatar
     }
 }

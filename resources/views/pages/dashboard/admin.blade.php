@@ -53,108 +53,123 @@
       </div>
       <!--/ Welcome Card -->
 
-      <!-- Quick Stats Role -->
+      <!-- Quick Stats Candidates -->
       <div class="col-xxl-2 col-sm-6">
          <div class="card h-100">
             <div class="card-body">
                <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
                   <div class="avatar">
                      <div class="avatar-initial bg-label-info rounded-3">
-                        <i class="ri-shield-user-line ri-24px"></i>
+                        <i class="ri-group-line ri-24px"></i>
                      </div>
                   </div>
                </div>
                <div class="card-info mt-5">
-                  <h5 class="mb-1">{{ \App\Models\Role::count() }}</h5>
-                  <p>Total Roles</p>
-                  <div class="badge bg-label-secondary rounded-pill">System Roles</div>
+                  <h5 class="mb-1">{{ $candidates->count() }}</h5>
+                  <p>Bakal Calon</p>
+                  <div class="badge bg-label-secondary rounded-pill">Total Terdaftar</div>
                </div>
             </div>
          </div>
       </div>
 
-      <!-- Quick Stats Users -->
+      <!-- Quick Stats Documents -->
       <div class="col-xxl-2 col-sm-6">
          <div class="card h-100">
             <div class="card-body">
                <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
                   <div class="avatar">
                      <div class="avatar-initial bg-label-primary rounded-3">
-                        <i class="ri-user-follow-line ri-24px"></i>
+                        <i class="ri-file-download-line ri-24px"></i>
                      </div>
                   </div>
                </div>
                <div class="card-info mt-5">
-                  <h5 class="mb-1">{{ \App\Models\User::count() }}</h5>
-                  <p>Total Users</p>
-                  <div class="badge bg-label-secondary rounded-pill">Active User</div>
+                  <h5 class="mb-1">{{ $documents->count() }}</h5>
+                  <p>Total Dokumen</p>
+                  <div class="badge bg-label-secondary rounded-pill">File Publik</div>
                </div>
             </div>
          </div>
       </div>
 
-      <!-- Performance & Projects (Placeholder of common admin view) -->
+      <!-- Pilrek Progress Overview -->
       <div class="col-12 col-xxl-8">
          <div class="card h-100">
             <div class="row row-bordered g-0 h-100">
                <div class="col-md-7 col-12 order-2 order-md-0">
                   <div class="card-header d-flex align-items-center justify-content-between">
-                     <h5 class="mb-0">Traffic Overview</h5>
-                     <small class="text-muted">Updated 1 min ago</small>
+                     <h5 class="mb-0">Progres Tahapan Pilrek</h5>
+                     <small class="text-muted">Updated just now</small>
                   </div>
-                  <div class="card-body">
-                     <div id="totalTransactionChart"></div>
+                  <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                     <div class="mb-4">
+                        <h2 class="display-4 fw-bold text-primary mb-0">{{ $progress }}%</h2>
+                        <p class="text-muted">Tahapan Selesai</p>
+                     </div>
+                     <div class="progress w-75 mb-4" style="height: 12px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar"
+                           style="width: {{ $progress }}%" aria-valuenow="{{ $progress }}" aria-valuemin="0"
+                           aria-valuemax="100"></div>
+                     </div>
+                     <p class="mb-0">{{ $completedEvents }} dari {{ $totalEvents }} event timeline telah dilaksanakan.
+                     </p>
                   </div>
                </div>
                <div class="col-md-5 col-12">
                   <div class="card-header">
-                     <h5 class="mb-1">Quick Actions</h5>
-                     <p class="mb-0 card-subtitle">Shortcut to management</p>
+                     <h5 class="mb-1">Aksi Cepat Pilrek</h5>
+                     <p class="mb-0 card-subtitle">Kelola Tahapan Pemilihan</p>
                   </div>
                   <div class="card-body pt-6">
                      <ul class="list-unstyled mb-0">
                         <li class="d-flex align-items-center mb-4">
-                           <div class="avatar avatar-sm me-3">
+                           <div class="avatar avatar-sm me-3"
+                              onclick="location.href='{{ route('admin.pilrek-candidate.create') }}'"
+                              style="cursor:pointer">
                               <span class="avatar-initial rounded bg-label-success"><i
-                                    class="ri-add-line ri-18px"></i></span>
+                                    class="ri-user-add-line ri-18px"></i></span>
                            </div>
                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                               <div class="me-2">
-                                 <h6 class="mb-0">Tambah Produk Baru</h6>
-                                 <small class="text-muted">Katalog Master</small>
+                                 <h6 class="mb-0">Tambah Bakal Calon</h6>
+                                 <small class="text-muted">Manajemen Kandidat</small>
                               </div>
-                              <a href="{{ route('products.create') }}"
+                              <a href="{{ route('admin.pilrek-candidate.create') }}"
                                  class="btn btn-sm btn-icon btn-text-secondary rounded-pill"><i
                                     class="ri-arrow-right-s-line"></i></a>
                            </div>
                         </li>
                         <li class="d-flex align-items-center mb-4">
-                           <div class="avatar avatar-sm me-3" style="cursor: pointer;"
-                              onclick="location.href='{{ route('menu.index') }}'">
+                           <div class="avatar avatar-sm me-3"
+                              onclick="location.href='{{ route('admin.pilrek-announcement.create') }}'"
+                              style="cursor:pointer">
                               <span class="avatar-initial rounded bg-label-warning"><i
-                                    class="ri-menu-search-line ri-18px"></i></span>
+                                    class="ri-megaphone-line ri-18px"></i></span>
                            </div>
                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                               <div class="me-2">
-                                 <h6 class="mb-0">Atur Menu Sidebar</h6>
-                                 <small class="text-muted">Navigasi Dinamis</small>
+                                 <h6 class="mb-0">Buat Pengumuman</h6>
+                                 <small class="text-muted">Update Berita Pilrek</small>
                               </div>
-                              <a href="{{ route('menu.index') }}"
+                              <a href="{{ route('admin.pilrek-announcement.create') }}"
                                  class="btn btn-sm btn-icon btn-text-secondary rounded-pill"><i
                                     class="ri-arrow-right-s-line"></i></a>
                            </div>
                         </li>
                         <li class="d-flex align-items-center">
-                           <div class="avatar avatar-sm me-3">
+                           <div class="avatar avatar-sm me-3"
+                              onclick="location.href='{{ route('admin.pilrek-document.create') }}'"
+                              style="cursor:pointer">
                               <span class="avatar-initial rounded bg-label-info"><i
-                                    class="ri-history-line ri-18px"></i></span>
+                                    class="ri-upload-cloud-line ri-18px"></i></span>
                            </div>
                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                               <div class="me-2">
-                                 <h6 class="mb-0">Log Aktivitas</h6>
-                                 <small class="text-muted">Audit System</small>
+                                 <h6 class="mb-0">Upload Dokumen</h6>
+                                 <small class="text-muted">Repository File</small>
                               </div>
-                              <a href="{{ route('activity-log.index') }}"
+                              <a href="{{ route('admin.pilrek-document.create') }}"
                                  class="btn btn-sm btn-icon btn-text-secondary rounded-pill"><i
                                     class="ri-arrow-right-s-line"></i></a>
                            </div>

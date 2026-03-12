@@ -46,7 +46,10 @@
                      <label class="form-label">Foto</label>
                      <input type="file" name="photo" class="form-control" accept="image/*">
                      @if (isset($data) && $data->photo)
-                        <small class="text-muted">Foto saat ini sudah terunggah. Upload baru untuk mengganti.</small>
+                        <div class="mt-2 text-center border rounded p-1" style="width: 100px;">
+                           <img src="{{ $data->photo_url }}" class="img-fluid rounded" style="max-height: 100px;">
+                        </div>
+                        <small class="text-muted">Foto saat ini terunggah. Upload baru untuk mengganti.</small>
                      @endif
                   </div>
                   <div class="col-md-12">
