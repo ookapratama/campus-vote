@@ -1,37 +1,42 @@
-name: Publish Website
-on:
-  push:
-    branches:
-      - main
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - uses: actions/checkout@v3
+# name: Publish Website
+# on:
+#   push:
+#     branches:
+#       - main
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
+#     if: github.ref == 'refs/heads/main'
+#     steps:
+#       - uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "20"
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: "20"
 
-      - name: Install dependencies & Build Assets
-        run: |
-          npm install
-          npm run build
+#       - name: Install dependencies & Build Assets
+#         run: |
+#           npm install
+#           npm run build
 
-      - name: 🚀 Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          # List of files to exclude
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/.env
-            **/storage/**
-            **/tests/**
-            **/vendor/**
+#       - name: 🚀 Deploy via FTP
+#         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+#         with:
+#           server: ${{ secrets.FTP_SERVER }}
+#           username: ${{ secrets.FTP_USERNAME }}
+#           password: ${{ secrets.FTP_PASSWORD }}
+#           port: ${{ secrets.FTP_PORT || 21 }}
+#           protocol: ftps
+#           security: loose
+#           server-dir: ${{ secrets.FTP_SERVER_DIR || '/' }}
+#           timeout: 60000
+#           # List of files to exclude
+#           exclude: |
+#             **/.git*
+#             **/.git*/**
+#             **/node_modules/**
+#             **/.env
+#             **/storage/**
+#             **/tests/**
+#             **/vendor/**

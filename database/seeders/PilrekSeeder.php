@@ -194,51 +194,6 @@ class PilrekSeeder extends Seeder
             'published_at' => '2026-03-10 09:00:00',
         ]);
 
-        // ========================================
-        // SAMPLE DOCUMENTS
-        // ========================================
-        PilrekDocument::create([
-            'title' => 'Formulir Pendaftaran Bakal Calon Rektor',
-            'description' => 'Formulir lengkap pendaftaran bakal calon rektor USN Kolaka periode 2026-2030.',
-            'file_path' => 'documents/formulir-pendaftaran-pilrek.pdf',
-            'file_name' => 'Formulir-Pendaftaran-Pilrek-USN-2026.pdf',
-            'file_type' => 'pdf',
-            'file_size' => 245760,
-            'category' => 'formulir',
-            'order' => 1,
-        ]);
-
-        PilrekDocument::create([
-            'title' => 'SK Senat tentang Pembentukan Panitia',
-            'description' => 'Surat Keputusan Senat USN Kolaka tentang Pembentukan Panitia Pemilihan Rektor.',
-            'file_path' => 'documents/sk-panitia-pilrek.pdf',
-            'file_name' => 'SK-Panitia-Pilrek-USN-2026.pdf',
-            'file_type' => 'pdf',
-            'file_size' => 156672,
-            'category' => 'sk',
-            'order' => 2,
-        ]);
-
-        PilrekDocument::create([
-            'title' => 'Permenristekdikti No. 19 Tahun 2017',
-            'description' => 'Peraturan Menteri tentang Pengangkatan dan Pemberhentian Pemimpin Perguruan Tinggi Negeri.',
-            'file_path' => 'documents/permenristekdikti-19-2017.pdf',
-            'file_name' => 'Permenristekdikti-No-19-Tahun-2017.pdf',
-            'file_type' => 'pdf',
-            'file_size' => 524288,
-            'category' => 'peraturan',
-            'order' => 3,
-        ]);
-
-        PilrekDocument::create([
-            'title' => 'Tata Tertib Pemilihan Rektor',
-            'description' => 'Tata tertib dan mekanisme pemilihan rektor USN Kolaka yang ditetapkan oleh Senat.',
-            'file_path' => 'documents/tatib-pilrek.pdf',
-            'file_name' => 'Tata-Tertib-Pilrek-USN-2026.pdf',
-            'file_type' => 'pdf',
-            'file_size' => 198656,
-            'category' => 'peraturan',
-            'order' => 4,
-        ]);
+        // Dokumen sekarang di-handle oleh PilrekDocumentSeeder
     }
 }
