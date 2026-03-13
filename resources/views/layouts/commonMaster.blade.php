@@ -41,7 +41,14 @@
    <link rel="canonical" href="{{ config('variables.productPage') ? config('variables.productPage') : '' }}">
    <!-- Favicon -->
    <link rel="icon" type="image/x-icon"
-      href="{{ config('variables.templateFavicon') ? asset('storage/' . config('variables.templateFavicon')) : asset('assets/img/favicon/favicon.ico') }}" />
+      href="{{ config('variables.templateFavicon') ? asset('storage/' . config('variables.templateFavicon')) : asset('assets/img/favicon/favicon_io/favicon.ico') }}" />
+   <link rel="apple-touch-icon" sizes="180x180"
+      href="{{ asset('assets/img/favicon/favicon_io/apple-touch-icon.png') }}">
+   <link rel="icon" type="image/png" sizes="32x32"
+      href="{{ asset('assets/img/favicon/favicon_io/favicon-32x32.png') }}">
+   <link rel="icon" type="image/png" sizes="16x16"
+      href="{{ asset('assets/img/favicon/favicon_io/favicon-16x16.png') }}">
+   <link rel="manifest" href="{{ asset('assets/img/favicon/favicon_io/site.webmanifest') }}">
 
 
    <!-- Include Styles -->

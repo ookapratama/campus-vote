@@ -41,7 +41,7 @@ class PilrekSeeder extends Seeder
             'phase_order' => 1,
             'event_name' => 'Perpanjangan Pendaftaran',
             'description' => 'Perpanjangan pendaftaran dilakukan jika tidak memenuhi 4 (Empat) Bakal Calon Rektor.',
-            'start_date' => '2026-03-13',
+            'start_date' => '2026-04-13',
             'end_date' => '2026-04-24',
             'icon' => 'ri-calendar-todo-line',
         ]);
@@ -79,6 +79,16 @@ class PilrekSeeder extends Seeder
             'start_date' => '2026-05-22',
             'end_date' => '2026-05-25',
             'icon' => 'ri-presentation-line',
+        ]);
+
+        PilrekTimeline::create([
+            'phase_name' => $phase2,
+            'phase_order' => 2,
+            'event_name' => 'Penyaringan Bakal Calon Rektor Menjadi 3 (Tiga) Calon Rektor',
+            'description' => 'Penyaringan bakal calon rektor oleh Senat Universitas untuk menetapkan 3 (tiga) calon rektor. *) Jadwal tentatif.',
+            'start_date' => '2026-05-25',
+            'end_date' => '2026-06-02',
+            'icon' => 'ri-zoom-in-line',
         ]);
 
         PilrekTimeline::create([

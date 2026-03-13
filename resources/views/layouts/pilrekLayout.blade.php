@@ -8,7 +8,14 @@
    <meta name="description" content="@yield('meta_description', 'Website Resmi Pemilihan Rektor Universitas Sembilanbelas November Kolaka Periode 2026-2030')">
    <meta name="keywords" content="pilrek, pemilihan rektor, USN Kolaka, universitas sembilanbelas november">
    <meta name="csrf-token" content="{{ csrf_token() }}">
-   <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}">
+   <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon_io/favicon.ico') }}">
+   <link rel="apple-touch-icon" sizes="180x180"
+      href="{{ asset('assets/img/favicon/favicon_io/apple-touch-icon.png') }}">
+   <link rel="icon" type="image/png" sizes="32x32"
+      href="{{ asset('assets/img/favicon/favicon_io/favicon-32x32.png') }}">
+   <link rel="icon" type="image/png" sizes="16x16"
+      href="{{ asset('assets/img/favicon/favicon_io/favicon-16x16.png') }}">
+   <link rel="manifest" href="{{ asset('assets/img/favicon/favicon_io/site.webmanifest') }}">
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link
@@ -26,8 +33,8 @@
    <nav class="navbar navbar-expand-lg navbar-dark pilrek-navbar fixed-top" id="pilrekNavbar">
       <div class="container">
          <a class="navbar-brand d-flex align-items-center" href="{{ route('pilrek.home') }}">
-            <div class="brand-icon me-2">
-               <i class="ri-government-fill"></i>
+            <div class="brand-logo me-2">
+               <img src="{{ asset('assets/img/icons/usn_logo.png') }}" alt="USN Kolaka Logo" height="45">
             </div>
             <div class="brand-text">
                <span class="brand-title">PILREK USN</span>
