@@ -94,10 +94,10 @@
                   <h6 class="text-gold mb-3">Kontak Panitia</h6>
                   <ul class="list-unstyled footer-links">
                      <li><i class="ri-map-pin-line me-2 text-gold"></i> Gedung Rektorat, Kampus USN Kolaka</li>
-                     <li><i class="ri-global-line me-2 text-gold"></i> <a href="https://pilrek.usn.ac.id"
-                           target="_blank">pilrek.usn.ac.id</a></li>
+                     <li><i class="ri-global-line me-2 text-gold"></i> <a href="https://pilrekusn.id/"
+                           target="_blank">pilrekusn.id</a></li>
                      <li><i class="ri-mail-line me-2 text-gold"></i> <a
-                           href="mailto:panitia.pilrek@usn.ac.id">panitia.pilrek@usn.ac.id</a></li>
+                           href="mailto: panitia@pilrekusn.id"> panitia@pilrekusn.id</a></li>
                   </ul>
                </div>
             </div>
