@@ -93,7 +93,8 @@
                <div class="col-lg-4">
                   <h6 class="text-gold mb-3">Kontak Panitia</h6>
                   <ul class="list-unstyled footer-links">
-                     <li><i class="ri-map-pin-line me-2 text-gold"></i> Gedung Rektorat, Kampus USN Kolaka</li>
+                     <li><i class="ri-map-pin-line me-2 text-gold"></i> Kampus Kolaka, Rektorat USN Kolaka, Jl. Pemuda
+                        Nomor 339, Kelurahan Tahoa, Kecamatan Kolaka, Kabupaten Kolaka, Sulawesi Tenggara 93517.</li>
                      <li><i class="ri-global-line me-2 text-gold"></i> <a href="https://pilrekusn.id/"
                            target="_blank">pilrekusn.id</a></li>
                      <li><i class="ri-mail-line me-2 text-gold"></i> <a
