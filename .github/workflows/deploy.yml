@@ -31,7 +31,7 @@ jobs:
           open -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }}; 
           mirror -R --delete \
             --exclude ^\.git/ \
-            --exclude ^node_modules/ \l
+            --exclude ^node_modules/ \
             --exclude ^\.env \
             --exclude ^tests/ \
             --exclude ^storage/ \
