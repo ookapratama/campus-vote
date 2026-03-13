@@ -20,19 +20,19 @@ jobs:
           npm install
           npm run build
 
-      - name: FTP-Deploy-Action
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
-          port: 21
-          local-dir: ./
-          server-dir: ./
-          # Mengabaikan folder yang tidak perlu di server
-          exclude: |
-            **/.git*
-            **/node_modules/**
-            **/.env*
-            **/tests/**
+      - name: 🚀 Deploy via LFTP
+        run: |
+          sudo apt-get update && sudo apt-get install -y lftp
+          lftp -c "
+          set ftp:ssl-allow no; 
+          set ftp:passive-mode true;
+          set net:timeout 30;
+          set net:max-retries 3;
+          open -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }}; 
+          mirror -R --delete \
+            --exclude ^\.git/ \
+            --exclude ^node_modules/ \l
+            --exclude ^\.env \
+            --exclude ^tests/ \
+            --exclude ^storage/ \
+            ./ ./"
