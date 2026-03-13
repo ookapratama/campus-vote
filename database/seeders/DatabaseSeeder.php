@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             ExtraMenuSeeder::class,
             PilrekSeeder::class,
             PilrekMenuSeeder::class,
+            PilrekDocumentSeeder::class,
         ]);
     }
 }

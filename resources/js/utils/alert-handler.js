@@ -50,12 +50,33 @@ class AlertHandler {
      * @param {Object} response - The response object (axios response or plain object)
      */
     handle(response) {
-        const data = response.data || response;
+        // If response is null or undefined
+        if (!response) {
+            this.showError("An unexpected error occurred (empty response)");
+            return;
+        }
+
+        // If it's an axios response, the actual data is in .data
+        // We detect axios response by checking for status/config/headers along with data
+        let data = response;
+        if (
+            response.hasOwnProperty("data") &&
+            (response.hasOwnProperty("status") ||
+                response.hasOwnProperty("config"))
+        ) {
+            data = response.data;
+        }
+
+        // Ensure data is an object
+        if (typeof data !== "object" || data === null) {
+            this.showError("Server returned an invalid response format");
+            return;
+        }
 
         if (data.success) {
-            this.showSuccess(data.message);
+            this.showSuccess(data.message || "Operation successful");
         } else {
-            this.showError(data.message, data.errors);
+            this.showError(data.message || "An error occurred", data.errors);
         }
     }
 

@@ -80,10 +80,10 @@
                      <div class="brand-icon me-2"><i class="ri-government-fill"></i></div>
                      <div>
                         <h5 class="mb-0 text-white">PILREK USN Kolaka</h5>
-                        <small class="text-white-50">Periode 2026–2030</small>
+                        <small class="text-white">Periode 2026–2030</small>
                      </div>
                   </div>
-                  <p class="text-white-50 mb-0" style="max-width:400px">
+                  <p class="text-white mb-0" style="max-width:400px">
                      Website resmi publikasi Pemilihan Rektor Universitas Sembilanbelas November Kolaka.
                      Diselenggarakan oleh Senat Universitas berdasarkan Permenristekdikti No. 19 Tahun 2017.
                   </p>
@@ -100,19 +100,20 @@
                <div class="col-lg-4">
                   <h6 class="text-gold mb-3">Kontak Panitia</h6>
                   <ul class="list-unstyled footer-links">
-                     <li><i class="ri-map-pin-line me-2 text-gold"></i> Gedung Rektorat, Kampus USN Kolaka</li>
+                     <li><i class="ri-map-pin-line me-2 text-gold"></i> Kampus Kolaka, Rektorat USN Kolaka, Jl. Pemuda
+                        Nomor 339, Kelurahan Tahoa, Kecamatan Kolaka, Kabupaten Kolaka, Sulawesi Tenggara 93517.</li>
                      <li><i class="ri-global-line me-2 text-gold"></i> <a href="https://pilrek.usn.ac.id"
                            target="_blank">pilrek.usn.ac.id</a></li>
-                     <li><i class="ri-mail-line me-2 text-gold"></i> <a
+                     <li><i class="ri-mail-line me-2 text-white"></i> <a
                            href="mailto:panitia.pilrek@usn.ac.id">panitia.pilrek@usn.ac.id</a></li>
                   </ul>
                </div>
             </div>
-            <hr class="border-white-50 my-4">
+            <hr class="border-white my-4">
             <div class="d-flex flex-wrap justify-content-between align-items-center">
-               <p class="text-white-50 mb-0 small">&copy; {{ date('Y') }} Panitia Pemilihan Rektor USN Kolaka. All
+               <p class="text-white mb-0 small">&copy; {{ date('Y') }} Panitia Pemilihan Rektor USN Kolaka. All
                   rights reserved.</p>
-               <p class="text-white-50 mb-0 small">Universitas Sembilanbelas November Kolaka</p>
+               <p class="text-white mb-0 small">Universitas Sembilanbelas November Kolaka</p>
             </div>
          </div>
       </div>

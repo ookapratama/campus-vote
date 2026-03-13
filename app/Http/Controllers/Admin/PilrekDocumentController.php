@@ -98,7 +98,7 @@ class PilrekDocumentController extends Controller
         }
         $doc->delete();
 
-        if (request()->wantsJson()) {
+        if (request()->ajax() || request()->wantsJson()) {
             return \App\Helpers\ResponseHelper::success(null, 'Dokumen berhasil dihapus!');
         }
         return redirect()->route('admin.pilrek-document.index')
