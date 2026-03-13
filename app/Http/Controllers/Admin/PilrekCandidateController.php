@@ -76,7 +76,7 @@ class PilrekCandidateController extends Controller
     public function destroy($id)
     {
         PilrekCandidate::findOrFail($id)->delete();
-        if (request()->wantsJson()) {
+        if (request()->ajax() || request()->wantsJson()) {
             return \App\Helpers\ResponseHelper::success(null, 'Bakal calon berhasil dihapus!');
         }
         return redirect()->route('admin.pilrek-candidate.index')

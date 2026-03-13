@@ -75,7 +75,7 @@ class PilrekTimelineController extends Controller
     {
         $this->service->deleteTimeline($id);
 
-        if (request()->wantsJson()) {
+        if (request()->ajax() || request()->wantsJson()) {
             return \App\Helpers\ResponseHelper::success(null, 'Event timeline berhasil dihapus!');
         }
         return redirect()->route('admin.pilrek-timeline.index')

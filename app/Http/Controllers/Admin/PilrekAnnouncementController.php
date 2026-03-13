@@ -75,7 +75,7 @@ class PilrekAnnouncementController extends Controller
     public function destroy($id)
     {
         PilrekAnnouncement::findOrFail($id)->delete();
-        if (request()->wantsJson()) {
+        if (request()->ajax() || request()->wantsJson()) {
             return \App\Helpers\ResponseHelper::success(null, 'Pengumuman berhasil dihapus!');
         }
         return redirect()->route('admin.pilrek-announcement.index')
