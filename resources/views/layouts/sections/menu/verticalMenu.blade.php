@@ -67,11 +67,7 @@
       <div class="app-brand demo">
          <a href="{{ route('dashboard') }}" class="app-brand-link">
             <span class="app-brand-logo demo">
-               @if (config('variables.templateLogo'))
-                  <img src="{{ asset('storage/' . config('variables.templateLogo')) }}" alt="Logo" height="30">
-               @else
-                  @include('_partials.macros', ['width' => 25, 'withbg' => 'var(--bs-primary)'])
-               @endif
+               <img src="{{ asset('assets/img/icons/usn_logo.png') }}" alt="Logo" height="35">
             </span>
             <span class="app-brand-text demo menu-text fw-semibold ms-2">{{ config('variables.templateName') }}</span>
          </a>
