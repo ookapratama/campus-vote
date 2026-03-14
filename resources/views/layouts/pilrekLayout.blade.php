@@ -8,14 +8,11 @@
    <meta name="description" content="@yield('meta_description', 'Website Resmi Pemilihan Rektor Universitas Sembilanbelas November Kolaka Periode 2026-2030')">
    <meta name="keywords" content="pilrek, pemilihan rektor, USN Kolaka, universitas sembilanbelas november">
    <meta name="csrf-token" content="{{ csrf_token() }}">
-   <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon_io/favicon.ico') }}">
-   <link rel="apple-touch-icon" sizes="180x180"
-      href="{{ asset('assets/img/favicon/favicon_io/apple-touch-icon.png') }}">
-   <link rel="icon" type="image/png" sizes="32x32"
-      href="{{ asset('assets/img/favicon/favicon_io/favicon-32x32.png') }}">
-   <link rel="icon" type="image/png" sizes="16x16"
-      href="{{ asset('assets/img/favicon/favicon_io/favicon-16x16.png') }}">
-   <link rel="manifest" href="{{ asset('assets/img/favicon/favicon_io/site.webmanifest') }}">
+   <link rel="icon" type="image/x-icon" href="/favicon.ico">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon/favicon_io/apple-touch-icon.png">
+   <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon_io/favicon-32x32.png">
+   <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon/favicon_io/favicon-16x16.png">
+   <link rel="manifest" href="/assets/img/favicon/favicon_io/site.webmanifest">
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link
@@ -34,7 +31,7 @@
       <div class="container">
          <a class="navbar-brand d-flex align-items-center" href="{{ route('pilrek.home') }}">
             <div class="brand-logo me-2">
-               <img src="{{ asset('assets/img/icons/usn_logo.png') }}" alt="USN Kolaka Logo" height="45">
+               <img src="/assets/img/icons/usn_logo.png" alt="USN Kolaka Logo" height="45">
             </div>
             <div class="brand-text">
                <span class="brand-title">PILREK USN</span>
@@ -77,7 +74,10 @@
             <div class="row g-4">
                <div class="col-lg-5">
                   <div class="d-flex align-items-center mb-3">
-                     <div class="brand-icon me-2"><i class="ri-government-fill"></i></div>
+                     <div class="brand-icon me-2">
+                        <img src="/assets/img/icons/usn_logo.png" alt="USN Logo" height="30"
+                           style="filter: brightness(0) invert(1);">
+                     </div>
                      <div>
                         <h5 class="mb-0 text-white">PILREK USN Kolaka</h5>
                         <small class="text-white">Periode 2026–2030</small>

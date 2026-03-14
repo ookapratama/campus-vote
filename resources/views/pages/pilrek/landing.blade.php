@@ -14,6 +14,10 @@
                   <i class="ri-calendar-check-line"></i>
                   Periode 2026 – 2030
                </div>
+               <div class="hero-campus-logo mb-3" data-aos="fade-down" data-aos-delay="100">
+                  <img src="/assets/img/icons/usn_logo.png" alt="Logo USN Kolaka" height="80"
+                     style="filter: drop-shadow(0 0 20px rgba(212,168,67,0.3));">
+               </div>
                <h1 class="hero-title">
                   Pemilihan <span class="text-gold">Rektor</span>
                </h1>
