@@ -77,7 +77,9 @@
             <div class="row g-4">
                <div class="col-lg-5">
                   <div class="d-flex align-items-center mb-3">
-                     <div class="brand-icon me-2"><i class="ri-government-fill"></i></div>
+                     <div class="brand-logo me-2">
+                        <img src="{{ asset('assets/img/icons/usn_logo.png') }}" alt="USN Kolaka Logo" height="45">
+                     </div>
                      <div>
                         <h5 class="mb-0 text-white">PILREK USN Kolaka</h5>
                         <small class="text-white">Periode 2026–2030</small>
