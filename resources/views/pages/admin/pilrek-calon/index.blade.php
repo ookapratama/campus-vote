@@ -6,16 +6,16 @@
    <div class="container-xxl flex-grow-1 container-p-y">
       <div class="d-flex justify-content-between align-items-center mb-4">
          <h4 class="fw-bold mb-0">
-            <span class="text-muted fw-light">Pilrek /</span> Bakal Calon
+            <span class="text-muted fw-light">Pilrek /</span> Calon (3 Besar)
          </h4>
-         <a href="{{ route('admin.pilrek-candidate.create') }}" class="btn btn-primary">
-            <i class="ri-add-line me-1"></i> Tambah Kandidat
+         <a href="{{ route('admin.pilrek-candidate.index') }}" class="btn btn-outline-secondary">
+            <i class="ri-arrow-left-line me-1"></i> Lihat Bakal Calon
          </a>
       </div>
 
       <div class="card">
          <div class="card-header border-bottom">
-            <h5 class="card-title mb-0">Daftar Bakal Calon Rektor</h5>
+            <h5 class="card-title mb-0">Daftar Calon Rektor (3 Besar Terpilih)</h5>
          </div>
          <div class="table-responsive">
             <table class="table table-hover">
@@ -77,8 +77,14 @@
                   @empty
                      <tr>
                         <td colspan="7" class="text-center py-5">
-                           <div class="text-muted"><i class="ri-user-search-line ri-3x mb-2"></i>
-                              <p>Belum ada data kandidat.</p>
+                           <div class="py-4 text-center">
+                              <div class="text-secondary mb-2">
+                                 <i class="ri-user-search-line ri-2x opacity-75"></i>
+                              </div>
+                              <h6 class="text-secondary fw-semibold mb-1">Belum Ada Calon 3 Besar</h6>
+                              <p class="text-muted small mb-0 px-3">
+                                 Silakan tandai kandidat terpilih melalui menu <span class="fw-medium text-primary">Bakal Calon</span> terlebih dahulu.
+                              </p>
                            </div>
                         </td>
                      </tr>

@@ -9,7 +9,9 @@ use Illuminate\Http\Request;
 
 class PilrekCandidateController extends Controller
 {
-    public function __construct(protected PilrekService $service) {}
+    public function __construct(protected PilrekService $service)
+    {
+    }
 
     public function index()
     {
@@ -81,5 +83,21 @@ class PilrekCandidateController extends Controller
         }
         return redirect()->route('admin.pilrek-candidate.index')
             ->with('success', 'Bakal calon berhasil dihapus!');
+    }
+
+    public function topThreeList()
+    {
+        $data = PilrekCandidate::topThree()->get();
+
+        return view('pages.admin.pilrek-calon.index', compact('data'));
+    }
+
+   public function toggleTopThree($id)
+    {
+        $candidate = PilrekCandidate::findOrFail($id);
+        $candidate->is_top_three = !$candidate->is_top_three;
+        $candidate->save();
+
+        return \App\Helpers\ResponseHelper::success(null, 'Status 3 Besar ' . $candidate->name . ' berhasil diperbarui!');
     }
 }

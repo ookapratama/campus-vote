@@ -25,6 +25,7 @@ class PilrekService
     {
         $timelineGroups = $this->timelineRepo->getGroupedByPhase();
         $candidates = $this->candidateRepo->getActive();
+        $topThreeCandidates = $candidates->filter(fn($c) => $c->is_top_three === true || $c->is_top_three == 1)->values();
         $announcements = $this->announcementRepo->getPublished(6);
         $documents = $this->documentRepo->getActive();
 
@@ -34,7 +35,7 @@ class PilrekService
         
         $progress = $totalEvents > 0 ? round(($completedEvents / $totalEvents) * 100) : 0;
 
-        return compact('timelineGroups', 'candidates', 'announcements', 'documents', 'totalEvents', 'completedEvents', 'progress');
+        return compact('timelineGroups', 'candidates', 'topThreeCandidates', 'announcements', 'documents', 'totalEvents', 'completedEvents', 'progress');
     }
 
     // --- Universal CRUD Methods (Example for others) ---
