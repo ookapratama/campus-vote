@@ -67,7 +67,7 @@
       <div class="app-brand demo">
          <a href="{{ route('dashboard') }}" class="app-brand-link">
             <span class="app-brand-logo demo">
-               <img src="{{ asset('assets/img/icons/usn_logo.png') }}" alt="Logo" height="35">
+               <img src="/assets/img/icons/usn_logo.png" alt="Logo" height="35">
             </span>
             <span class="app-brand-text demo menu-text fw-semibold ms-2">{{ config('variables.templateName') }}</span>
          </a>
