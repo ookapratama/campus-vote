@@ -45,9 +45,9 @@
                      <div class="hero-stat-label">Tahap Pilrek</div>
                   </div>
                   <div class="hero-stat">
-                     <div class="hero-stat-icon"><i class="ri-user-star-line"></i></div>
-                     <div class="hero-stat-value" data-counter="{{ $candidates->count() }}">0</div>
-                     <div class="hero-stat-label">Bakal Calon</div>
+                     <div class="hero-stat-icon"><i class="ri-medal-line"></i></div>
+                     <div class="hero-stat-value" data-counter="{{ isset($topThreeCandidates) ? $topThreeCandidates->count() : 0 }}">0</div>
+                     <div class="hero-stat-label">Calon Rektor</div>
                   </div>
                </div>
             </div>
