@@ -100,14 +100,14 @@
                $phaseIndex++;
                $phaseStatuses = $events->map(fn($e) => $e->computed_status);
                if ($phaseStatuses->every(fn($s) => $s === 'selesai')) {
-                   $phaseStatus = 'selesai';
-                   $phaseLabel = 'Selesai';
+                  $phaseStatus = 'selesai';
+                  $phaseLabel = 'Selesai';
                } elseif ($phaseStatuses->contains('berlangsung')) {
-                   $phaseStatus = 'berlangsung';
-                   $phaseLabel = 'Berlangsung';
+                  $phaseStatus = 'berlangsung';
+                  $phaseLabel = 'Berlangsung';
                } else {
-                   $phaseStatus = 'akan_datang';
-                   $phaseLabel = 'Akan Datang';
+                  $phaseStatus = 'akan_datang';
+                  $phaseLabel = 'Akan Datang';
                }
             @endphp
             <div class="timeline-phase" data-aos="fade-up" data-aos-delay="{{ $phaseIndex * 100 }}">
@@ -182,8 +182,7 @@
             <div class="row g-4">
                @foreach ($candidates as $candidate)
                   <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                     <div class="candidate-card"
-                        onclick="window.location='{{ route('pilrek.candidate', $candidate->id) }}'">
+                     <div class="candidate-card" onclick="window.location='{{ route('pilrek.candidate', $candidate->id) }}'">
                         <div class="candidate-photo">
                            @if ($candidate->photo)
                               <img src="{{ $candidate->photo_url }}" alt="{{ $candidate->name }}">
@@ -199,7 +198,8 @@
                         </div>
                         <div class="candidate-info">
                            <h4 class="candidate-name">
-                              {{ ucwords(strtolower($candidate->title . ' ' . $candidate->name)) }}</h4>
+                              {{ ucwords(strtolower($candidate->title . ' ' . $candidate->name)) }}
+                           </h4>
 
                            @if ($candidate->position)
                               <p class="candidate-position">{{ $candidate->position }}</p>
@@ -217,6 +217,57 @@
          @endif
       </div>
    </section>
+
+   <!-- ========== CALON 3 BESAR SECTION ========== -->
+   <section id="calon-3-besar" class="section-pilrek">
+      <div class="container">
+         <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title">Calon Rektor</h2>
+            <p class="section-subtitle">Profil calon rektor USN Kolaka periode 2026-2030</p>
+         </div>
+
+         @if ($topThreeCandidates->count() > 0)
+            <div class="row g-4">
+               @foreach ($topThreeCandidates as $candidate)
+                  <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                     <div class="candidate-card" onclick="window.location='{{ route('pilrek.candidate', $candidate->id) }}'">
+                        <div class="candidate-photo">
+                           @if ($candidate->photo)
+                              <img src="{{ $candidate->photo_url }}" alt="{{ $candidate->name }}">
+                           @else
+                              <div class="placeholder-icon">
+                                 <i class="ri-user-3-line"></i>
+                              </div>
+                           @endif
+                           <div class="candidate-overlay">
+                              <i class="ri-eye-line"></i>
+                              <span>Lihat Profil</span>
+                           </div>
+                        </div>
+                        <div class="candidate-info text-center">
+                           <h4 class="candidate-name">{{ ucwords(strtolower($candidate->title . ' ' . $candidate->name)) }}
+                           </h4>
+                           <p class="candidate-position mb-0">{{ $candidate->position }}</p>
+                        </div>
+                     </div>
+                  </div>
+               @endforeach
+            </div>
+         @else
+            <div class="row justify-content-center" data-aos="fade-up">
+               <div class="col-md-8 col-lg-6">
+                  <div class="text-center py-5">
+                     <div class="text-secondary mb-3">
+                        <i class="ri-user-search-line ri-3x opacity-50"></i>
+                     </div>
+                     <h5 class="fw-semibold text-secondary mb-2">Belum Ada Calon Rektor</h5>
+                  </div>
+               </div>
+            </div>
+         @endif
+      </div>
+   </section>
+
    <!-- ========== PENGUMUMAN SECTION ========== -->
    <section id="pengumuman" class="section-pilrek bg-light">
       <div class="container">
@@ -240,7 +291,8 @@
                            <a href="{{ route('pilrek.announcement', $item->slug) }}">{{ $item->title }}</a>
                         </h4>
                         <p class="announcement-excerpt">
-                           {{ $item->excerpt ?? Str::limit(strip_tags($item->content), 120) }}</p>
+                           {{ $item->excerpt ?? Str::limit(strip_tags($item->content), 120) }}
+                        </p>
                         <div class="announcement-meta">
                            <i class="ri-calendar-line"></i>
                            {{ $item->published_at?->translatedFormat('d F Y') ?? $item->created_at->translatedFormat('d F Y') }}

@@ -18,17 +18,24 @@ class PilrekCandidate extends Model
         'experience',
         'order',
         'is_active',
+        'is_top_three',
     ];
 
     protected $casts = [
         'education' => 'array',
         'experience' => 'array',
         'is_active' => 'boolean',
+        'is_top_three' => 'boolean',
     ];
 
     public function scopeActive($query)
     {
         return $query->where('is_active', true)->orderBy('order');
+    }
+
+    public function scopeTopThree($query)
+    {
+        return $query->where('is_top_three', true)->orderBy('order');
     }
 
     public function getPhotoUrlAttribute(): string

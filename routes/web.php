@@ -32,6 +32,8 @@ Route::middleware(['auth'])->group(function () {
     // ========================================
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('pilrek-timeline', \App\Http\Controllers\Admin\PilrekTimelineController::class)->except(['show']);
+        Route::get('top-three', [\App\Http\Controllers\Admin\PilrekCandidateController::class, 'topThreeList'])->name('pilrek-candidate.top-three');
+        Route::post('pilrek-candidate/{id}/toggle-top-three', [\App\Http\Controllers\Admin\PilrekCandidateController::class, 'toggleTopThree'])->name('pilrek-candidate.toggle-top-three');
         Route::resource('pilrek-candidate', \App\Http\Controllers\Admin\PilrekCandidateController::class)->except(['show']);
         Route::resource('pilrek-announcement', \App\Http\Controllers\Admin\PilrekAnnouncementController::class)->except(['show']);
         Route::resource('pilrek-document', \App\Http\Controllers\Admin\PilrekDocumentController::class)->except(['show']);
